@@ -1,5 +1,8 @@
 <Solution>
   <Folder Name="/src/" />
+  <Folder Name="/src/clients/">
+    <Project Path="src/clients/Connectome.UserManagement.Service.Client/Connectome.UserManagement.Service.Client.csproj" />
+  </Folder>
   <Folder Name="/src/services/" />
   <Folder Name="/src/services/SocialGraph/">
     <Project Path="src/services/SocialGraph/Connectome.SocialGraph.Api/Connectome.SocialGraph.Api.csproj" />
