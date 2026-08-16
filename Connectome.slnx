@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/services/" />
+  <Folder Name="/src/services/SocialGraph/">
+    <Project Path="src/services/SocialGraph/Connectome.SocialGraph.Api/Connectome.SocialGraph.Api.csproj" />
+    <Project Path="src/services/SocialGraph/Connectome.SocialGraph.Application/Connectome.SocialGraph.Application.csproj" />
+    <Project Path="src/services/SocialGraph/Connectome.SocialGraph.Domain/Connectome.SocialGraph.Domain.csproj" />
+    <Project Path="src/services/SocialGraph/Connectome.SocialGraph.Infrastructure/Connectome.SocialGraph.Infrastructure.csproj" />
+  </Folder>
+</Solution>
