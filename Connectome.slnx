@@ -10,4 +10,14 @@
     <Project Path="src/services/SocialGraph/Connectome.SocialGraph.Domain/Connectome.SocialGraph.Domain.csproj" />
     <Project Path="src/services/SocialGraph/Connectome.SocialGraph.Infrastructure/Connectome.SocialGraph.Infrastructure.csproj" />
   </Folder>
+  <Folder Name="/src/shared/" />
+  <Folder Name="/src/shared/contracts/">
+    <Project Path="src/shared/contracts/Shared.Contracts/Shared.Contracts.csproj" />
+  </Folder>
+  <Folder Name="/src/shared/core/">
+    <Project Path="src/shared/core/Shared.Kernel/Shared.Kernel.csproj" />
+  </Folder>
+  <Folder Name="/src/shared/observability/">
+    <Project Path="src/shared/observability/Shared.Logging/Shared.Logging.csproj" />
+  </Folder>
 </Solution>
