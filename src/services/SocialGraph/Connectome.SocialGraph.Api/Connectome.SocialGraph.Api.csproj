@@ -8,9 +8,13 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\shared\contracts\Shared.Contracts\Shared.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\shared\core\Shared.Kernel\Shared.Kernel.csproj" />
+    <ProjectReference Include="..\..\..\shared\observability\Shared.Logging\Shared.Logging.csproj" />
     <ProjectReference Include="..\Connectome.SocialGraph.Application\Connectome.SocialGraph.Application.csproj" />
     <ProjectReference Include="..\Connectome.SocialGraph.Infrastructure\Connectome.SocialGraph.Infrastructure.csproj" />
   </ItemGroup>

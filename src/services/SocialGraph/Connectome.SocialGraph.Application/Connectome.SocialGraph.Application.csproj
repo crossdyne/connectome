@@ -6,4 +6,18 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+    <PackageReference Include="MediatR" />
+    <PackageReference Include="Crossdyne.Toolkit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\shared\contracts\Shared.Contracts\Shared.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\shared\core\Shared.Kernel\Shared.Kernel.csproj" />
+    <ProjectReference Include="..\..\..\shared\observability\Shared.Logging\Shared.Logging.csproj" />
+    <ProjectReference Include="..\Connectome.SocialGraph.Domain\Connectome.SocialGraph.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
