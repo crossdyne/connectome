@@ -1,6 +1,12 @@
+using Connectome.SocialGraph.Infrastructure.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddOpenApi();
+IConfiguration configuration = builder.Configuration;
+
+builder.Services
+    .AddOpenApi()
+    .AddDataBase(configuration);
 
 var app = builder.Build();
 
