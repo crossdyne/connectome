@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Neo4j.Driver" />
+    <PackageReference Include="Microsoft.Extensions.Http" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\shared\contracts\Shared.Contracts\Shared.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\shared\core\Shared.Kernel\Shared.Kernel.csproj" />
+    <ProjectReference Include="..\..\..\shared\infrastructure\Shared.Messaging\Shared.Messaging.csproj" />
+    <ProjectReference Include="..\..\..\shared\infrastructure\Shared.Redis\Shared.Redis.csproj" />
+    <ProjectReference Include="..\Connectome.SocialGraph.Application\Connectome.SocialGraph.Application.csproj" />
+    <ProjectReference Include="..\Connectome.SocialGraph.Domain\Connectome.SocialGraph.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
