@@ -87,3 +87,6 @@ secrets.json
 *.pidb
 *.svclog
 *.scc
+
+# ==================== Logs ====================
+*logs
