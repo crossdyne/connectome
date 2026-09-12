@@ -17,6 +17,9 @@ namespace Connectome.SocialGraph.Infrastructure.Extensions
             services.AddScoped<IIntegrationEventHandler<UserCreatedIntegrationEvent>, CreatePersonIntegrationEventHandler>();
             services.AddKafkaConsumer<UserCreatedIntegrationEvent>("user-management.user.account-created");
 
+            services.AddScoped<IIntegrationEventHandler<UserAccountDeletedIntegrationEvent>, UserAccountDeletedIntegrationEventHandler>();
+            services.AddKafkaConsumer<UserAccountDeletedIntegrationEvent>("user-management.user.account-delete");
+
             return services;
         }
     }
