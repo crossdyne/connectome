@@ -1,5 +1,7 @@
+using Connectome.SocialGraph.Application.Abstractions.Repositories;
 using Connectome.SocialGraph.Infrastructure.Models.Settings;
 using Connectome.SocialGraph.Infrastructure.Persistence.Migrations;
+using Connectome.SocialGraph.Infrastructure.Persistence.Repositories.Persons;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -21,6 +23,7 @@ namespace Connectome.SocialGraph.Infrastructure.Extensions
 
             services.AddSingleton<Neo4jMigrationService>();
 
+            services.AddScoped<IPersonRepository, PersonRepository>();
 
             return services;
         }

@@ -1,4 +1,5 @@
 using Connectome.SocialGraph.Infrastructure.Extensions;
+using Connectome.SocialGraph.Infrastructure.Persistence.Migrations;
 using Serilog;
 using Shared.Logging;
 
@@ -9,7 +10,8 @@ IConfiguration configuration = builder.Configuration;
 builder.Host.AddSerilogLogger();
 builder.Services
     .AddOpenApi()
-    .AddDataBase(configuration);
+    .AddDataBase(configuration)
+    .AddEventHandlers(configuration);
 
 var app = builder.Build();
 
