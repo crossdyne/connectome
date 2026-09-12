@@ -1,4 +1,5 @@
 using Connectome.SocialGraph.Infrastructure.Models.Settings;
+using Connectome.SocialGraph.Infrastructure.Persistence.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -17,6 +18,9 @@ namespace Connectome.SocialGraph.Infrastructure.Extensions
 
                return GraphDatabase.Driver(settings.Uri, AuthTokens.Basic(settings.Username, settings.Password)); 
             });
+
+            services.AddSingleton<Neo4jMigrationService>();
+
 
             return services;
         }

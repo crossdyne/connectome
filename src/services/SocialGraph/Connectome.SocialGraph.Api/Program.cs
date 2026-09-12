@@ -19,6 +19,12 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseSerilogRequestLogging();
 
-app.Logger.LogInformation("Приложение успешно запущено и готово к работе!");
+app.Logger.LogInformation("Приложение успешно запустилось и готово к работе! 🚀");
+
+using (var scope = app.Services.CreateScope())
+{
+    var migrationService = scope.ServiceProvider.GetRequiredService<Neo4jMigrationService>();
+    await migrationService.MigrateAsync();
+}
 
 app.Run();
