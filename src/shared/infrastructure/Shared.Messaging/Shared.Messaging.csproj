@@ -12,4 +12,8 @@
     <PackageReference Include="Microsoft.Extensions.Hosting" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\abstractions\Shared.Abstractions\Shared.Abstractions.csproj" />
+  </ItemGroup>
+
 </Project>

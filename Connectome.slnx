@@ -11,6 +11,9 @@
     <Project Path="src/services/SocialGraph/Connectome.SocialGraph.Infrastructure/Connectome.SocialGraph.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/src/shared/" />
+  <Folder Name="/src/shared/abstractions/">
+    <Project Path="src/shared/abstractions/Shared.Abstractions/Shared.Abstractions.csproj" />
+  </Folder>
   <Folder Name="/src/shared/contracts/">
     <Project Path="src/shared/contracts/Shared.Contracts/Shared.Contracts.csproj" />
   </Folder>
