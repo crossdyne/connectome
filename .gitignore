@@ -51,7 +51,6 @@ artifacts/
 *.key
 *.pem
 appsettings*.local.json
-appsettings*.Development.json
 secrets.json
 *.secret
 *.env
@@ -87,3 +86,6 @@ secrets.json
 *.pidb
 *.svclog
 *.scc
+
+# ==================== Logs ====================
+*logs

@@ -1,0 +1,5 @@
+* text=auto
+
+*.cs text diff=csharp linguist-language=C#
+*.md text linguist-language=Markdown
+*.cypher text linguist-language=Cypher
