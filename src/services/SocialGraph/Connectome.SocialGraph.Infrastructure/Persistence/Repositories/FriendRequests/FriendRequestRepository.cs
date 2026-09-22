@@ -27,8 +27,6 @@ namespace Connectome.SocialGraph.Infrastructure.Persistence.Repositories.FriendR
                     projectId = Neo4jConstants.ProjectIdentifier,
                     fromUserId = request.FromUserId.Value.ToString(),
                     toUserId = request.ToUserId.Value.ToString(),
-                    friendRequestId = request.Id.Value.ToString(),
-                    status = request.Status.Name,
                     createdAt = request.CreatedAt
                 };
 
