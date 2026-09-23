@@ -1,6 +1,8 @@
 using Connectome.SocialGraph.Application.Abstractions.Repositories;
 using Connectome.SocialGraph.Infrastructure.Models.Settings;
 using Connectome.SocialGraph.Infrastructure.Persistence.Migrations;
+using Connectome.SocialGraph.Infrastructure.Persistence.Repositories.FriendRequests;
+using Connectome.SocialGraph.Infrastructure.Persistence.Repositories.Friendships;
 using Connectome.SocialGraph.Infrastructure.Persistence.Repositories.Persons;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +26,8 @@ namespace Connectome.SocialGraph.Infrastructure.Extensions
             services.AddSingleton<Neo4jMigrationService>();
 
             services.AddScoped<IPersonRepository, PersonRepository>();
+            services.AddScoped<IFriendRequestRepository, FriendRequestRepository>();
+            services.AddScoped<IFriendshipRepository, FriendshipRepository>();
 
             return services;
         }
