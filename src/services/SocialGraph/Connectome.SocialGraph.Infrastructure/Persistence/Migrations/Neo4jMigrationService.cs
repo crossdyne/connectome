@@ -16,8 +16,8 @@ namespace Connectome.SocialGraph.Infrastructure.Persistence.Migrations
             await ExecuteMigrationAsync("002_CreatePersonProjectUserIdConstraint");
             await ExecuteMigrationAsync("003_CreatePersonProjectUserNameIndex");
             await ExecuteMigrationAsync("004_CreateFriendRequestCreatedAtIndex");
-            await ExecuteMigrationAsync("005_CreateFriendRequestFromToUserIdConstraint");
-            await ExecuteMigrationAsync("006_CreateFriendRequestCreatedAtIndex");
+            await ExecuteMigrationAsync("005_CreateFriendshipCreatedAtIndex");
+            await ExecuteMigrationAsync("006_CreateFriendshipBlockedAtIndex");
 
             logger.LogInformation("Все миграции применены");
         }

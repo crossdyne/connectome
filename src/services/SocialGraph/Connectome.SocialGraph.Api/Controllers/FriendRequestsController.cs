@@ -1,6 +1,7 @@
 using Connectome.SocialGraph.Api.Extensions;
 using Connectome.SocialGraph.Api.Models;
-using Connectome.SocialGraph.Application.Feature.FriendRequests.Commands.Reject;
+using Connectome.SocialGraph.Application.Feature.FriendRequests.Commands.Cancel;
+using Connectome.SocialGraph.Application.Feature.FriendRequests.Commands.Decline;
 using Connectome.SocialGraph.Application.Feature.FriendRequests.Commands.Send;
 using Connectome.SocialGraph.Application.Feature.FriendRequests.Queries.IncomingRequests;
 using Connectome.SocialGraph.Application.Feature.FriendRequests.Queries.OutgoingRequests;
@@ -38,17 +39,36 @@ namespace Connectome.SocialGraph.Api.Controllers
                 onFailure: errors => BadRequest(errors));
         }
 
-        [HttpPost("reject")]
-        public async Task<IActionResult> RejectFriend([FromBody] RejectFriendRequest request)
+        [HttpPost("decline")]
+        public async Task<IActionResult> DeclineRequest([FromBody] DeclineFriendRequest request)
         {
             Result<ExtractData> extractResult = this.ExtractCredentials(User, out IActionResult actionResult);
             
             if (extractResult.IsFailure)
                 return actionResult;
 
-            var command = new RejectFriendCommand(
+            var command = new DeclineRequestCommand(
                 RequesterUserId: Guid.Parse(request.RequesterUserId), 
                 RecipientUserId: extractResult.Value.UserId);
+
+            Result<Unit> result = await mediator.Send(command);
+
+            return result.Match<IActionResult>(
+                onSuccess: () => Ok(),
+                onFailure: errors => BadRequest(errors));
+        }
+
+        [HttpPost("cancel")]
+        public async Task<IActionResult> CancelRequest([FromBody] CancelFriendRequest request)
+        {
+            Result<ExtractData> extractResult = this.ExtractCredentials(User, out IActionResult actionResult);
+            
+            if (extractResult.IsFailure)
+                return actionResult;
+
+            var command = new CancelFriendRequestCommand(
+                RequesterUserId: extractResult.Value.UserId,
+                RecipientUserId: Guid.Parse(request.RecipientUserId));
 
             Result<Unit> result = await mediator.Send(command);
 

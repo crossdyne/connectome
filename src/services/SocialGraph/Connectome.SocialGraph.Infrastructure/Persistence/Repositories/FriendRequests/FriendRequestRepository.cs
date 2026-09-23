@@ -1,5 +1,6 @@
 using Connectome.SocialGraph.Application.Abstractions.Repositories;
 using Connectome.SocialGraph.Domain.Models;
+using Connectome.SocialGraph.Domain.ValueObjects.Common;
 using Connectome.SocialGraph.Infrastructure.Constants;
 using Connectome.SocialGraph.Infrastructure.Helpers;
 using Crossdyne.Toolkit.Primitives;
@@ -36,6 +37,68 @@ namespace Connectome.SocialGraph.Infrastructure.Persistence.Repositories.FriendR
             });
 
             logger.LogInformation("Успешное выполнение запроса на дружбу между отправителем userId={from} и получателем userId={to}", request.FromUserId.Value, request.ToUserId.Value);
+
+            return Unit.Value;
+        }
+
+        public async Task<Result<Unit>> Decline(UserId fromUserId, UserId toUserId)
+        {
+            var query = CypherLoader.Load<FriendRequestRepository>("DeclineFriendRequest.cypher");
+
+            logger.LogInformation("Создание сессии для удаления запроса дружбы от пользователя userId={from} к пользователю userId={to}", fromUserId.Value, toUserId.Value);
+
+            await using var session = driver.AsyncSession();
+
+            await session.ExecuteWriteAsync(async tx =>
+            {
+                var parameters = new
+                {
+                    projectId = Neo4jConstants.ProjectIdentifier,
+                    fromUserId = fromUserId.Value.ToString(),
+                    toUserId = toUserId.Value.ToString()
+                };
+
+                var result = await tx.RunAsync(query, parameters);
+                var summary = await result.ConsumeAsync();
+
+                logger.LogInformation("Запрос выполнен. Удалено отношений: {RelationshipsDeleted}", summary.Counters.RelationshipsDeleted);
+
+                if (summary.Counters.RelationshipsDeleted == 0)
+                    logger.LogWarning("Запрос дружбы от пользователя userId={from} к пользователю userId={to} не найден в Neo4j", fromUserId.Value, toUserId.Value);
+            });
+
+            logger.LogInformation("Успешное выполнение запроса на удаление запроса дружбы от пользователя userId={from} к пользователю userId={to}", fromUserId.Value, toUserId.Value);
+
+            return Unit.Value;
+        }
+
+        public async Task<Result<Unit>> Cancel(UserId fromUserId, UserId toUserId)
+        {
+            var query = CypherLoader.Load<FriendRequestRepository>("CancelFriendRequest.cypher");
+
+            logger.LogInformation("Создание сессии для отмены запроса дружбы от пользователя userId={from} к пользователю userId={to}", fromUserId.Value, toUserId.Value);
+
+            await using var session = driver.AsyncSession();
+
+            await session.ExecuteWriteAsync(async tx =>
+            {
+                var parameters = new
+                {
+                    projectId = Neo4jConstants.ProjectIdentifier,
+                    fromUserId = fromUserId.Value.ToString(),
+                    toUserId = toUserId.Value.ToString()
+                };
+
+                var result = await tx.RunAsync(query, parameters);
+                var summary = await result.ConsumeAsync();
+
+                logger.LogInformation("Запрос выполнен. Удалено отношений: {RelationshipsDeleted}", summary.Counters.RelationshipsDeleted);
+
+                if (summary.Counters.RelationshipsDeleted == 0)
+                    logger.LogWarning("Запрос отмены запроса дружбы от пользователя userId={from} к пользователю userId={to} не найден в Neo4j", fromUserId.Value, toUserId.Value);
+            });
+
+            logger.LogInformation("Успешное выполнение запроса на отмену запроса дружбы от пользователя userId={from} к пользователю userId={to}", fromUserId.Value, toUserId.Value);
 
             return Unit.Value;
         }
