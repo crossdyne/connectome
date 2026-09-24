@@ -8,6 +8,7 @@ namespace Connectome.SocialGraph.Application.Abstractions.Repositories
     public interface IFriendshipRepository
     {
         Task<Result<Unit>> Accept(Friendship friendship);
+        Task<Result<Unit>> DeleteFriend(Guid userId, Guid friendId);
         Task<List<FriendResponse>> Friends(Guid userId);
     }
 }

@@ -46,6 +46,35 @@ namespace Connectome.SocialGraph.Infrastructure.Persistence.Repositories.Friends
             return Unit.Value;
         }
 
+        public async Task<Result<Unit>> DeleteFriend(Guid userId, Guid friendId)
+        {
+            var query = CypherLoader.Load<FriendshipRepository>("RemoveFriend.cypher");
+
+            logger.LogInformation("Создание сессии для прекращение дружбы между userId={from} и userId={to}", userId, friendId);
+
+            await using var session = driver.AsyncSession();
+
+            await session.ExecuteWriteAsync(async tx =>
+            {
+                var parameters = new
+                {
+                    projectId = Neo4jConstants.ProjectIdentifier,
+                    requesterUserId = userId.ToString(),
+                    removableUserId = friendId.ToString(),
+                };
+
+                var result = await tx.RunAsync(query, parameters);
+                var summary = await result.ConsumeAsync();
+
+                if (summary.Counters.RelationshipsDeleted == 0)
+                    throw new InvalidOperationException($"Дружба между {userId} и {friendId} не найдена");
+            });
+
+            logger.LogInformation("Успешное выполнение запроса на прекращение дружбы между userId={from} и userId={to}", userId, friendId);
+
+            return Unit.Value;
+        }
+
         public async Task<List<FriendResponse>> Friends(Guid userId)
         {
             var query = CypherLoader.Load<FriendshipRepository>("GetFriends.cypher");
