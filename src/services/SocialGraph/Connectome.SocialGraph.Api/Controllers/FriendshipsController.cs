@@ -1,11 +1,13 @@
 using Connectome.SocialGraph.Api.Extensions;
 using Connectome.SocialGraph.Api.Models;
 using Connectome.SocialGraph.Application.Feature.Friendships.Commands.Accept;
+using Connectome.SocialGraph.Application.Feature.Friendships.Queries.Friends;
 using Crossdyne.Toolkit.Results;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Contracts.SocialGraph.Requests;
+using Shared.Contracts.SocialGraph.Responses;
 using Unit = Crossdyne.Toolkit.Primitives.Unit;
 
 namespace Connectome.SocialGraph.Api.Controllers
@@ -31,6 +33,22 @@ namespace Connectome.SocialGraph.Api.Controllers
 
             return result.Match<IActionResult>(
                 onSuccess: () => Ok(),
+                onFailure: errors => BadRequest(errors));
+        }
+
+        [HttpGet("friends")]
+        public async Task<IActionResult> Friends()
+        {
+            Result<ExtractData> extractResult = this.ExtractCredentials(User, out IActionResult actionResult);
+
+            if (extractResult.IsFailure)
+                return actionResult;
+
+            var query = new GetFriendsQuery(extractResult.Value.UserId);
+            Result<List<FriendResponse>> result = await mediator.Send(query);
+  
+            return result.Match<IActionResult>(
+                onSuccess: () => Ok(result.Value),
                 onFailure: errors => BadRequest(errors));
         }
     }
