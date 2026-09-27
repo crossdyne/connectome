@@ -30,7 +30,7 @@ namespace Connectome.SocialGraph.Api.Controllers
 
             var command = new SendFriendRequestCommand(
                 FromUserId: extractResult.Value.UserId, 
-                ToUserInviteCode: request.InviteCode);
+                ToUserId: Guid.Parse(request.UserId));
 
             Result<Unit> result = await mediator.Send(command);
 

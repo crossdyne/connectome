@@ -17,8 +17,7 @@ builder.Services
     .RegisterAuthentication(configuration)
     .AddDataBase(configuration)
     .AddEventHandlers(configuration)
-    .UseMediator()
-    .UseHttpService(configuration);
+    .UseMediator();
 
 var app = builder.Build();
 
