@@ -1,5 +1,5 @@
-MATCH (from:Person {projectId: $projectId, userId: $fromUserId})
-MATCH (to:Person   {projectId: $projectId, userId: $toUserId})
+MATCH (from:Person {projectId: $projectId, userId: $requesterUserId})
+MATCH (to:Person   {projectId: $projectId, userId: $recipientUserId})
 
 OPTIONAL MATCH (from)-[existingFriendship:FRIENDSHIP]-(to)
 OPTIONAL MATCH (from)-[existingReq:FRIEND_REQUEST]->(to)
@@ -13,8 +13,8 @@ WHERE existingFriendship IS NULL
 MERGE (from)-[req:FRIEND_REQUEST]->(to)
 ON CREATE SET 
     req.createdAt = $createdAt,
-    req.fromUserId = $fromUserId,
-    req.toUserId = $toUserId,
+    req.requesterUserId = $requesterUserId,
+    req.recipientUserId = $recipientUserId,
     req.projectId = $projectId
 
 RETURN req.createdAt AS createdAt, 'CREATED' AS action

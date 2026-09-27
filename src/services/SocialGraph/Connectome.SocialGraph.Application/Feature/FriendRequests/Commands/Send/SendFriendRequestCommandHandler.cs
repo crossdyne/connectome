@@ -12,7 +12,7 @@ namespace Connectome.SocialGraph.Application.Feature.FriendRequests.Commands.Sen
     {
         public async Task<Result<Unit>> Handle(SendFriendRequestCommand request, CancellationToken cancellationToken)
         {
-            var friendRequest = FriendRequest.Create(UserId.Create(request.FromUserId), UserId.Create(request.ToUserId));
+            var friendRequest = FriendRequest.Create(UserId.Create(request.RequesterUserId), UserId.Create(request.RecipientUserId));
 
             Result<Unit> result = await repository.Send(friendRequest); 
 

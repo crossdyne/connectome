@@ -14,7 +14,7 @@ namespace Connectome.SocialGraph.Application.Feature.Friendships.Commands.Accept
         {
             var friendship = Friendship.Create(
                 requesterUserId: UserId.Create(request.RequesterUserId),
-                acceptorUserId: UserId.Create(request.AcceptorUserId));
+                recipientUserId: UserId.Create(request.RecipientUserId));
 
             Result<Unit> result = await repository.Accept(friendship);
 

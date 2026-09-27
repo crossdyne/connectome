@@ -4,5 +4,5 @@ using Unit = Crossdyne.Toolkit.Primitives.Unit;
 
 namespace Connectome.SocialGraph.Application.Feature.FriendRequests.Commands.Send
 {
-    public sealed record SendFriendRequestCommand(Guid FromUserId, Guid ToUserId) : IRequest<Result<Unit>>;
+    public sealed record SendFriendRequestCommand(Guid RequesterUserId, Guid RecipientUserId) : IRequest<Result<Unit>>;
 }
