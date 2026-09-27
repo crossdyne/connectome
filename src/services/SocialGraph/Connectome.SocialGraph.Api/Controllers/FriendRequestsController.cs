@@ -29,8 +29,8 @@ namespace Connectome.SocialGraph.Api.Controllers
                 return actionResult;
 
             var command = new SendFriendRequestCommand(
-                FromUserId: extractResult.Value.UserId, 
-                ToUserInviteCode: request.InviteCode);
+                RequesterUserId: extractResult.Value.UserId, 
+                RecipientUserId: Guid.Parse(request.UserId));
 
             Result<Unit> result = await mediator.Send(command);
 

@@ -28,7 +28,7 @@ namespace Connectome.SocialGraph.Api.Controllers
 
             var command = new AcceptFriendCommand(
                 RequesterUserId: Guid.Parse(request.RequesterUserId) , 
-                AcceptorUserId: extractResult.Value.UserId);
+                RecipientUserId: extractResult.Value.UserId);
                 
             Result<Unit> result = await mediator.Send(command);
 

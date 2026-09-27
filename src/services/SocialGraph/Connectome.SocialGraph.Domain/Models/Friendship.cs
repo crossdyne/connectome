@@ -5,7 +5,7 @@ namespace Connectome.SocialGraph.Domain.Models
     public sealed class Friendship
     {
         public UserId RequesterUserId { get; private set; }
-        public UserId AcceptorUserId { get; private set; }
+        public UserId RecipientUserId { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public DateTime? BlockedAt { get; private set; }
         public UserId? BlockedBy { get; private set; }
@@ -15,16 +15,16 @@ namespace Connectome.SocialGraph.Domain.Models
             
         }
 
-        private Friendship(UserId requesterUserId, UserId acceptorUserId)
+        private Friendship(UserId requesterUserId, UserId recipientUserId)
         {
             RequesterUserId = requesterUserId;
-            AcceptorUserId = acceptorUserId;
+            RecipientUserId = recipientUserId;
             CreatedAt = DateTime.UtcNow;    
         }
 
-        public static Friendship Create(UserId requesterUserId, UserId acceptorUserId)
+        public static Friendship Create(UserId requesterUserId, UserId recipientUserId)
         {
-            return new(requesterUserId, acceptorUserId);
+            return new(requesterUserId, recipientUserId);
         }
     }
 }

@@ -1,4 +1,4 @@
 namespace Shared.Contracts.SocialGraph.Requests
 {
-    public sealed record SendFriendRequest(string InviteCode);
+    public sealed record SendFriendRequest(string UserId);
 }

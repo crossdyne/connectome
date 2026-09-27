@@ -7,8 +7,8 @@ namespace Connectome.SocialGraph.Domain.Models
 {
     public sealed class FriendRequest
     {
-        public UserId FromUserId { get; private set; }
-        public UserId ToUserId { get; private set; }
+        public UserId RequesterUserId { get; private set; }
+        public UserId RecipientUserId { get; private set; }
         public DateTime CreatedAt { get; private set; }
 
         private FriendRequest()
@@ -16,20 +16,20 @@ namespace Connectome.SocialGraph.Domain.Models
             
         }
 
-        private FriendRequest(UserId from, UserId to)
+        private FriendRequest(UserId requester, UserId recipient)
         {
-            FromUserId = from;
-            ToUserId = to;
+            RequesterUserId = requester;
+            RecipientUserId = recipient;
 
             CreatedAt = DateTime.UtcNow;
         }
 
-        public static FriendRequest Create(UserId from, UserId to)
+        public static FriendRequest Create(UserId requester, UserId recipient)
         {
-            if (from == to)
+            if (requester == recipient)
                 throw new DomainException(new Error(AppErrors.SelfFRiendRequestNotAllowed, "Нельзя отправить запрос дружбы самому себе"));
                 
-            return new FriendRequest(from, to);
+            return new FriendRequest(requester, recipient);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Connectome.SocialGraph.Infrastructure.Persistence.Repositories.Friends
         {
             var query = CypherLoader.Load<FriendshipRepository>("AcceptFriend.cypher");
 
-            logger.LogInformation("Создание сессии для принятия запроса дружбы между отправителем userId={from} и получателем userId={to}", friendship.RequesterUserId.Value, friendship.AcceptorUserId.Value);
+            logger.LogInformation("Создание сессии для принятия запроса дружбы между отправителем userId={from} и получателем userId={to}", friendship.RequesterUserId.Value, friendship.RecipientUserId.Value);
 
             await using var session = driver.AsyncSession();
 
@@ -28,7 +28,7 @@ namespace Connectome.SocialGraph.Infrastructure.Persistence.Repositories.Friends
                 {
                     projectId = Neo4jConstants.ProjectIdentifier,
                     requesterUserId = friendship.RequesterUserId.Value.ToString(),
-                    acceptorUserId = friendship.AcceptorUserId.Value.ToString(),
+                    recipientUserId = friendship.RecipientUserId.Value.ToString(),
                     createdAt = friendship.CreatedAt
                 };
 
@@ -38,10 +38,10 @@ namespace Connectome.SocialGraph.Infrastructure.Persistence.Repositories.Friends
                 logger.LogInformation("Запрос выполнен. Создано отношений: {RelationshipsCreated}, удалено отношений: {RelationshipsDeleted}", summary.Counters.RelationshipsCreated, summary.Counters.RelationshipsDeleted);
                
                 if (summary.Counters.RelationshipsDeleted == 0)
-                    logger.LogWarning("Запрос дружбы от пользователя userId={from} к пользователю userId={to} не найден или уже был обработан", friendship.RequesterUserId.Value, friendship.AcceptorUserId.Value);
+                    logger.LogWarning("Запрос дружбы от пользователя userId={from} к пользователю userId={to} не найден или уже был обработан", friendship.RequesterUserId.Value, friendship.RecipientUserId.Value);
             });
 
-            logger.LogInformation("Успешное выполнение запроса на принятие дружбы между отправителем userId={from} и получателем userId={to}", friendship.RequesterUserId.Value, friendship.AcceptorUserId.Value);
+            logger.LogInformation("Успешное выполнение запроса на принятие дружбы между отправителем userId={from} и получателем userId={to}", friendship.RequesterUserId.Value, friendship.RecipientUserId.Value);
 
             return Unit.Value;
         }

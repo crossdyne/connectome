@@ -1,5 +1,5 @@
 MATCH (requester:Person {projectId: $projectId, userId: $requesterUserId})
-MATCH (acceptor:Person {projectId: $projectId, userId: $acceptorUserId})
+MATCH (acceptor:Person {projectId: $projectId, userId: $recipientUserId})
 MATCH (requester)-[req:FRIEND_REQUEST]->(acceptor)
 OPTIONAL MATCH (acceptor)-[reverseReq:FRIEND_REQUEST]->(requester)
 WITH
@@ -21,7 +21,7 @@ MERGE (startNode)-[friendship:FRIENDSHIP]->(endNode)
 ON CREATE SET
     friendship.createdAt = $createdAt,
     friendship.requesterUserId = $requesterUserId,
-    friendship.acceptorUserId = $acceptorUserId
+    friendship.recipientUserId = $recipientUserId
 DELETE req
 WITH friendship, reverseReq
 FOREACH (r IN CASE WHEN reverseReq IS NULL THEN [] ELSE [reverseReq] END | DELETE r)
